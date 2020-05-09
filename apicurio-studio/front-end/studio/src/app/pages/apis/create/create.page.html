@@ -1,0 +1,14 @@
+<div id="api-breadcrumb-bar">
+    <breadcrumbs>
+        <li breadcrumb label="APIs" [route]="[ '/apis' ]"></li>
+        <li breadcrumb label="Create API" class="active"></li>
+    </breadcrumbs>
+</div>
+<page-error [error]="pageError" *ngIf="pageError"></page-error>
+<div class="container-fluid" *ngIf="!pageError">
+    <div class="createapi-form row">
+        <div class="col-md-8">
+            <createapi-form #createApiForm (onCreateApi)="onCreateApi($event)" #createApiForm></createapi-form>
+        </div>
+    </div>
+</div>
