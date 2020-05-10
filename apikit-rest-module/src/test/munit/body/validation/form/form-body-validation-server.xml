@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+  xmlns:http="http://www.mulesoft.org/schema/mule/http"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.mulesoft.org/schema/mule/core"
+  xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+                          http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+                          http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd">
+
+
+  <apikit:config name="form-body-validation-config" api="${raml.api}"
+    outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" parser="${parser.type}"/>
+
+  <flow name="form-body-validation-main">
+    <http:listener config-ref="http-listener-simple" path="/form-data/*">
+      <http:response statusCode="#[vars.httpStatus default 200]">
+        <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+      </http:response>
+      <http:error-response statusCode="#[vars.httpStatus default 500]">
+        <http:body>#[payload]</http:body>
+        <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+      </http:error-response>
+    </http:listener>
+    <apikit:router config-ref="form-body-validation-config"/>
+    <error-handler ref="global-server-error-handler"/>
+  </flow>
+
+  <flow name="post:\form-data\(form-id)\file:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[payload]"/>
+  </flow>
+
+  <flow name="post:\multiple-required-multipart:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output application/json --- payload.parts pluck $$ as String]" />
+  </flow>
+
+  <flow name="post:\multiple-optional-multipart:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output application/json --- payload.parts pluck $$ as String]" />
+  </flow>
+
+  <flow name="post:\multipart:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output application/json --- {(payload.parts pluck {'$$': $.content})}]" />
+  </flow>
+
+  <flow name="post:\uploadFile:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output text/plain --- payload.parts.document.content]"/>
+  </flow>
+
+  <flow name="post:\uploadJsonFile:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output application/json --- payload.parts.document.content]"/>
+  </flow>
+
+  <flow name="post:\uploadXmlFile:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output application/xml --- payload.parts.document.content]"/>
+  </flow>
+
+  <flow name="post:\uploadImage:multipart\form-data:form-body-validation-config">
+    <set-payload value="#[output text/plain  --- sizeOf(payload.parts.image.content) == sizeOf(readUrl('classpath://munit/body/form/bbva.jpg', 'application/octet-stream'))]"/>
+  </flow>
+
+</mule>
