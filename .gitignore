@@ -1,0 +1,6 @@
+.idea
+/MulesoftBoilerplate/mule-apikit-tools/mule-apikit-archetype/target
+/MulesoftBoilerplate/mule-apikit-tools/mule-apikit-maven-plugin/target
+/MulesoftBoilerplate/mule-apikit-tools/mule-apikit-scaffolder/target
+/MulesoftBoilerplate/mulesoft-platform-creator/target
+*.iml
