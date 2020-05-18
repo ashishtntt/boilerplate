@@ -10,18 +10,18 @@ import org.springframework.context.annotation.ComponentScan;
 
 import com.nttdata.boilerplate.builder.MuleBaseArchetypeBuilderConfiguration;
 
-@ComponentScan(basePackages = { "com.nttdata.boilerplate" })
+@ComponentScan(basePackages = {"com.nttdata.boilerplate"})
 @SpringBootApplication
 @EnableConfigurationProperties
 public class BoilerplatePlatformCreatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication springApp = new SpringApplication(BoilerplatePlatformCreatorApplication.class);
-//		ApplicationContext ctxt = SpringApplication.run(, args);
-		springApp.setDefaultProperties(Collections
-				.singletonMap("server.port", "8090"));
-		springApp.run(args);
-		
-	}
+  public static void main(String[] args) {
+    SpringApplication springApp = new SpringApplication(BoilerplatePlatformCreatorApplication.class);
+    //		ApplicationContext ctxt = SpringApplication.run(, args);
+    springApp.setDefaultProperties(Collections
+        .singletonMap("server.port", "8090"));
+    springApp.run(args);
+
+  }
 
 }

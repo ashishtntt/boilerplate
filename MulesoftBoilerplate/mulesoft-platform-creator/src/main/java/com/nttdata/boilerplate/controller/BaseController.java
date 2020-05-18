@@ -21,63 +21,63 @@ import com.nttdata.boilerplate.model.MuleBaseCreatorCommandModel;
 @RequestMapping("/api/base")
 public class BaseController {
 
-	@Autowired
-	MuleBaseArchetypeBuilderConfiguration config;
+  @Autowired
+  MuleBaseArchetypeBuilderConfiguration config;
 
-	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<MuleBaseCreatorCommandModel> createBase(
-			@RequestBody final MuleBaseCreatorCommandModel archetypeModel) {
+  @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MuleBaseCreatorCommandModel> createBase(
+                                                                @RequestBody final MuleBaseCreatorCommandModel archetypeModel) {
 
-		MuleBaseArchetypeBuilderConfiguration archetypeBuilder = config
-				.setOperationType(archetypeModel.getOperationType())
-				.setArchetypeGroupId(archetypeModel.getArchetypeGroupId())
-				.setArchetypeArtifactId(archetypeModel.getArchetypeArtifactId())
-				.setArchetypeVersion(archetypeModel.getArchetypeVersion())
-				.setArchetypeRepository(archetypeModel.getArchetypeRepository()).setGroupId(archetypeModel.getGroupId())
-				.setArtifactId(archetypeModel.getArtifactId()).setPackageName(archetypeModel.getPackageName())
-				.setVersion(archetypeModel.getVersion())
-				.setAdditionalParameters(archetypeModel.getAdditionalParameters());
+    MuleBaseArchetypeBuilderConfiguration archetypeBuilder = config
+        .setOperationType(archetypeModel.getOperationType())
+        .setArchetypeGroupId(archetypeModel.getArchetypeGroupId())
+        .setArchetypeArtifactId(archetypeModel.getArchetypeArtifactId())
+        .setArchetypeVersion(archetypeModel.getArchetypeVersion())
+        .setArchetypeRepository(archetypeModel.getArchetypeRepository()).setGroupId(archetypeModel.getGroupId())
+        .setArtifactId(archetypeModel.getArtifactId()).setPackageName(archetypeModel.getPackageName())
+        .setVersion(archetypeModel.getVersion())
+        .setAdditionalParameters(archetypeModel.getAdditionalParameters());
 
-		String command = archetypeBuilder.build();
+    String command = archetypeBuilder.build();
 
-		System.out.println(archetypeModel);
-		System.out.println(command);
-		if(checkDuplicateProject(archetypeModel.getArtifactId())) {
-			System.out.println("already existing project");
-		}
-		Process process = null;
-		try {
-			process = Runtime.getRuntime().exec("cmd.exe /c " + command);
-			System.out.println(process);
-			copy(process.getInputStream(), System.out);
-			process.waitFor();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return new ResponseEntity<MuleBaseCreatorCommandModel>(archetypeModel, HttpStatus.OK);
-	}
-	
-	static void copy(InputStream in, OutputStream out) throws IOException {
-	    while (true) {
-	        int c = in.read();
-	        if (c == -1)
-	            break;
-	        out.write((char) c);
-	    }
-	}
-	
-	private boolean checkDuplicateProject(String projectName) {
-		boolean alreadyExists = false;
-		File file = new File(projectName);
-		if(file.isDirectory() && file.exists()) {
-			alreadyExists = true;
-		}
-		return alreadyExists;
-	}
-	
+    System.out.println(archetypeModel);
+    System.out.println(command);
+    if (checkDuplicateProject(archetypeModel.getArtifactId())) {
+      System.out.println("already existing project");
+    }
+    Process process = null;
+    try {
+      process = Runtime.getRuntime().exec("cmd.exe /c " + command);
+      System.out.println(process);
+      copy(process.getInputStream(), System.out);
+      process.waitFor();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    return new ResponseEntity<MuleBaseCreatorCommandModel>(archetypeModel, HttpStatus.OK);
+  }
+
+  static void copy(InputStream in, OutputStream out) throws IOException {
+    while (true) {
+      int c = in.read();
+      if (c == -1)
+        break;
+      out.write((char) c);
+    }
+  }
+
+  private boolean checkDuplicateProject(String projectName) {
+    boolean alreadyExists = false;
+    File file = new File(projectName);
+    if (file.isDirectory() && file.exists()) {
+      alreadyExists = true;
+    }
+    return alreadyExists;
+  }
+
 }

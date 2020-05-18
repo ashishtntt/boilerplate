@@ -52,7 +52,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
   @Before
   public void setUp() throws Exception {
     mojo = new CreateMojo();
-
+    System.out.println("Invoking CreateMojoTest setUp() ");
 
     project = folder.newFolder("my-project");
     src = new File(project, "src");
@@ -69,6 +69,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
 
     // Do
     apiFile = new File(api, "hello.raml");
+    System.out.println("Invoking CreateMojoTest apiFile  ");
     apiFile.createNewFile();
     new File(api, "bye.yml").createNewFile();
     new File(lala, "wow.raml").createNewFile();
@@ -83,6 +84,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
 
   @Test
   public void testGetIncludedFiles() throws Exception {
+    System.out.println("Invoking CreateMojoTest testGetIncludedFiles() ");
     List<String> files =
         mojo.getIncludedFiles(project, new String[] {"src/main/resources/api/**/*.raml", "src/main/resources/api/**/*.yml"},
                               new String[] {});
@@ -97,6 +99,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
 
   @Test
   public void testExecuteWithoutDomain() throws Exception {
+    System.out.println("Invoking CreateMojoTest testExecuteWithoutDomain() ");
     setVariableValueToObject(mojo, "muleXmlDirectory", app);
     setVariableValueToObject(mojo, "specDirectory", project);
     setVariableValueToObject(mojo, "muleXmlOutputDirectory", app);
@@ -128,6 +131,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
 
   @Test
   public void testExecuteWithCustomDomain() throws Exception {
+    System.out.println("Invoking CreateMojoTest testExecuteWithCustomDomain() ");
     domainProject = domainFolder.newFolder("my-domain");
     domainFile = new File(domainProject, "mule-domain-config.xml");
     setVariableValueToObject(mojo, "muleXmlDirectory", app);
@@ -165,6 +169,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
 
   @Test
   public void testExecuteWithEmptyDomain() throws Exception {
+    System.out.println("Invoking CreateMojoTest testExecuteWithEmptyDomain() ");
     domainProject = domainFolder.newFolder("my-domain");
     domainFile = new File(domainProject, "mule-domain.xml");
     setVariableValueToObject(mojo, "muleXmlDirectory", app);
@@ -198,6 +203,7 @@ public class CreateMojoTest extends AbstractMojoTestCase {
 
   @Test
   public void testExecuteWithDefaultDomain() throws Exception {
+    System.out.println("Invoking CreateMojoTest testExecuteWithDefaultDomain() ");
     domainProject = domainFolder.newFolder("my-domain");
     setVariableValueToObject(mojo, "muleXmlDirectory", app);
     setVariableValueToObject(mojo, "specDirectory", project);
