@@ -31,7 +31,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -64,11 +63,13 @@
             <artifactId>maven-core</artifactId>
             <version>3.6.0</version>
         </dependency>
+
     </dependencies>
 
     <build>
+    <pluginManagement>
         <plugins>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.2</version>
@@ -80,7 +81,7 @@
                     </instrumentation>
                     <check />
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
@@ -128,5 +129,6 @@
                 <!--</executions>-->
             </plugin>
         </plugins>
+        </pluginManagement>
     </build>
 </project>

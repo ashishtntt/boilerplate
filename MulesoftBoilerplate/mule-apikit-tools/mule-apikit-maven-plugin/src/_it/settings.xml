@@ -24,7 +24,7 @@ under the License.
     <profile>
       <id>it-repo</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <repositories>
         <repository>

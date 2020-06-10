@@ -4,3 +4,5 @@
 /MulesoftBoilerplate/mule-apikit-tools/mule-apikit-scaffolder/target
 /MulesoftBoilerplate/mulesoft-platform-creator/target
 *.iml
+*.exec
+*.factorypath

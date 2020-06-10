@@ -1,9 +1,6 @@
 package com.nttdata.boilerplate.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nttdata.boilerplate.build.inital.BaseTemplateGenerator;
 import com.nttdata.boilerplate.builder.MuleBaseArchetypeBuilderConfiguration;
 import com.nttdata.boilerplate.model.MuleBaseCreatorCommandModel;
+import com.nttdata.boilerplate.plugin.MuleScaffolderCreator;
+import com.nttdata.boilerplate.utils.FileUtils;
 
 @RestController
 @RequestMapping("/api/base")
@@ -23,6 +23,12 @@ public class BaseController {
 
   @Autowired
   MuleBaseArchetypeBuilderConfiguration config;
+
+  @Autowired
+  MuleScaffolderCreator pluginInvoker;
+  
+  @Autowired
+  private BaseTemplateGenerator initialGenerator; 
 
   @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<MuleBaseCreatorCommandModel> createBase(
@@ -40,13 +46,22 @@ public class BaseController {
 
     String command = archetypeBuilder.build();
 
+    try {
+		pluginInvoker.execute();
+	} catch (Exception se) {
+		// TODO Auto-generated catch block
+		se.printStackTrace();
+	}
+
+
     System.out.println(archetypeModel);
     System.out.println(command);
-    if (checkDuplicateProject(archetypeModel.getArtifactId())) {
+    if (FileUtils.checkDuplicateProject(archetypeModel.getArtifactId())) {
       System.out.println("already existing project");
     }
     Process process = null;
-    try {
+    
+    /*try {
       process = Runtime.getRuntime().exec("cmd.exe /c " + command);
       System.out.println(process);
       copy(process.getInputStream(), System.out);
@@ -57,27 +72,28 @@ public class BaseController {
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    }
+    }*/
 
     return new ResponseEntity<MuleBaseCreatorCommandModel>(archetypeModel, HttpStatus.OK);
   }
 
-  static void copy(InputStream in, OutputStream out) throws IOException {
-    while (true) {
-      int c = in.read();
-      if (c == -1)
-        break;
-      out.write((char) c);
-    }
+  @PostMapping(value = "/generate", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MuleBaseCreatorCommandModel> generateBaseSkeleton(
+                                                                @RequestBody final MuleBaseCreatorCommandModel archetypeModel) {
+	  
+	  try {
+		initialGenerator.init();
+		pluginInvoker.execute();
+		
+	} catch (IOException e) {
+		e.printStackTrace();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  
+	  return null;
   }
 
-  private boolean checkDuplicateProject(String projectName) {
-    boolean alreadyExists = false;
-    File file = new File(projectName);
-    if (file.isDirectory() && file.exists()) {
-      alreadyExists = true;
-    }
-    return alreadyExists;
-  }
-
+  
 }
