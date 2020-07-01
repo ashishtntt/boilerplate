@@ -5,13 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.nttdata.mulesoft.boilerplate</groupId>
-	<artifactId>MulesoftBoilerplate</artifactId>
+	<artifactId>mulesoft-boilerplate</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<modules>
 		<module>mule-apikit-tools</module>
 		<module>mulesoft-platform-creator</module>
-		<module>MuleApp-demo</module>
+		<!--<module>MuleApp-demo</module> -->
 	</modules>
 
 	<properties>
@@ -310,10 +310,12 @@
 
 		<pluginManagement>
 			<plugins>
+				<!--
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 				</plugin>
+				-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>

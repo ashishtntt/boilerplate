@@ -8,7 +8,7 @@
 			<version>2.2.7.RELEASE</version> <relativePath/> -->
 		<!-- lookup parent from repository -->
 		<groupId>com.nttdata.mulesoft.boilerplate</groupId>
-		<artifactId>MulesoftBoilerplate</artifactId>
+		<artifactId>mulesoft-boilerplate</artifactId>
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 

@@ -167,7 +167,7 @@ public class MuleBaseArchetypeBuilderConfiguration {
                        this.version + Constants.WHITESPACE +
                        this.additionalParameters);
 
-    /*return new MuleBaseCreatorCommandModel(operationType, archetypeGroupId, archetypeArtifactId,
+    /*return new MuleBaseCreatorModel(operationType, archetypeGroupId, archetypeArtifactId,
     		archetypeVersion, archetypeRepository, groupId, artifactId, packageName,
     		version, additionalParameters);*/
     return builder.toString();
