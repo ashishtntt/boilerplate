@@ -1,6 +1,7 @@
 package com.nttdata.boilerplate.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,8 @@ public class MuleBaseCreatorModel implements MuleBaseModel {
 	private String packageName;
 	@JsonProperty("version")
 	private String version;
+	@JsonProperty("features")
+	private Map<String, Object> features = null;
 
 	/*@JsonProperty("specs")
 	private String specs;*/
@@ -51,7 +54,7 @@ public class MuleBaseCreatorModel implements MuleBaseModel {
 
 	public MuleBaseCreatorModel(String operationType, String archetypeGroupId, String archetypeArtifactId,
 			String archetypeVersion, String archetypeRepository, String groupId, String artifactId, String packageName,
-			String version, String additionalParameters) {
+			String version, Map<String, Object> features, String additionalParameters) {
 
 		this.operationType = operationType;
 		this.archetypeGroupId = archetypeGroupId;
@@ -62,6 +65,7 @@ public class MuleBaseCreatorModel implements MuleBaseModel {
 		this.artifactId = artifactId;
 		this.packageName = packageName;
 		this.version = version;
+		this.features = features;
 		this.additionalParameters = additionalParameters;
 	}
 
@@ -173,6 +177,16 @@ public class MuleBaseCreatorModel implements MuleBaseModel {
 	@JsonAnySetter
 	public void setAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
+	}
+	
+	@JsonProperty("features")
+	public Map<String, Object> getFeatures() {
+	return features;
+	}
+
+	@JsonProperty("features")
+	public void setFeatures(Map<String, Object> features) {
+	this.features = features;
 	}
 
 	/*@JsonProperty("specs")

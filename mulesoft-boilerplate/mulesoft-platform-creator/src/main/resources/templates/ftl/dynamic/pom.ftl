@@ -43,7 +43,21 @@
             <classifier>mule-plugin</classifier>
             <version>${r"${mule.http.connector.version}"}</version>
         </dependency>
-    </dependencies>
+        
+<#if (dependencies)??>
+  <#list dependencies?keys as dependency>
+   	<#if dependency=="logging">
+	   	<dependency>
+	   		<groupId>us.kkk.muleConnector</groupId>
+			<artifactId>mule-weather-connector</artifactId>
+			<version>3.0.40</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+	</#if>
+  </#list>	
+</#if>
+
+   </dependencies>
 
     <repositories>
         <repository>
