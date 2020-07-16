@@ -1,0 +1,19 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:logger="http://www.mulesoft.org/schema/mule/logger"
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+          http://www.mulesoft.org/schema/mule/logger http://www.mulesoft.org/schema/mule/logger/current/mule-logger.xsd">
+
+    <logger:config name="config" configId="configId">
+        <logger:connection requiredParameter="aValue" />
+    </logger:config>
+
+    <flow name="sayHiFlow">
+        <logger:say-hi person="Mariano Gonzalez"/>
+    </flow>
+
+    <flow name="retrieveInfoFlow">
+        <logger:retrieve-info config-ref="config"/>
+    </flow>
+
+</mule>
