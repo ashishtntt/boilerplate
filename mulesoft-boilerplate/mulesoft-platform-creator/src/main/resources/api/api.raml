@@ -1,0 +1,804 @@
+#%RAML 1.0
+title: Rentals based on RA number or MVA
+description: |-
+  ### Rentals v1.0
+  This publishes read-only data pertaining to a rental agreement.
+
+  ### Rentals -Search By RA Number
+  This retrieves the rental details based on RA Number.
+
+  ### Rentals -Search By MVA Number
+  This retrieves the rental details based on a MVA (Motor Vehicle Asset) number of the vehicle.
+version: v1
+(oas-info):
+  contact:
+    name: pramod kumar tyagi
+    email: pramod.kumar.tyagi@nttdata.com
+  license:
+    name: GNU AGPLv3
+    url: 'https://www.gnu.org/licenses/agpl.txt'
+annotationTypes:
+  oas-info:
+    properties:
+      termsOfService?: string
+      contact?:
+        properties:
+          name?: string
+          url?: string
+          email?: string
+      license?:
+        properties:
+          name?: string
+          url?: string
+    allowedTargets: API
+  oas-tags-definition:
+    allowedTargets: API
+    type: array
+    items:
+      properties:
+        name: string
+        description?: string
+        externalDocs?:
+          properties:
+            url: string
+            description?: string
+  oas-responses: any
+  oas-schema-title:
+    type: string
+    allowedTargets: TypeDeclaration
+  oas-global-response-definition:
+    type: any
+    allowedTargets: Response
+  amf-mediaType: any
+  oas-summary:
+    type: string
+    allowedTargets: Method
+  oas-tags:
+    type: 'string[]'
+    allowedTargets: Method
+  amf-displayName: any
+  amf-description: any
+(oas-tags-definition):
+  - name: MVA
+    description: ''
+  - name: RA
+    description: ''
+mediaType: application/json
+protocols:
+  - HTTPS
+baseUri: 'https://stage.nttdataservices.com/getrental'
+(oas-responses):
+  display-rental:
+    description: Display Rental
+    body:
+      type: array
+      items:
+        type: rental
+securitySchemes:
+  OAuth:
+    type: OAuth 2.0
+    settings:
+      authorizationUri: 'https://oauth2.example.com/auth'
+      accessTokenUri: 'https://oauth2.example.com/token'
+      authorizationGrants:
+        - authorization_code
+types:
+  address:
+    description: Address
+    example:
+      address_line_1: 7518 EXTENSIONS ROAD
+      address_line_2: 2ND STREET
+      address_line_3: 'WILNSDORF,KA'
+    type: object
+    properties:
+      address_line_1:
+        type: string
+      address_line_2:
+        type: string
+      address_line_3:
+        type: string
+    (oas-schema-title): Root Type for address
+  driver_license:
+    description: Driver License
+    example:
+      country_code: US
+      license_number: XXXXX5624
+      state_code: KA
+    type: object
+    properties:
+      country_code:
+        type: string
+      license_number:
+        type: string
+      state_code:
+        type: string
+    (oas-schema-title): Root Type for driver_license
+  rental:
+    description: Rental
+    example:
+      rental_agreement_number: 1XXXX3416
+      brand: A
+      mva: 011XX224
+      first_name: John
+      last_name: Simon
+      company_name: ABC Corporation
+      date_of_birth: '1966-08-30'
+      address:
+        address_line_1: 7518 EXTENSIONS ROAD
+        address_line_2: 2ND STREET
+        address_line_3: 'WILNSDORF,KA'
+      passport_number: XX12XXXX9
+      driver_license:
+        country_code: US
+        license_number: XXXXX5624
+        state_code: KA
+    type: object
+    properties:
+      rental_agreement_number:
+        type: string
+      brand:
+        type: string
+      mva:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      company_name:
+        type: string
+      date_of_birth:
+        type: date-only
+      address:
+        type: object
+        properties:
+          address_line_1:
+            type: string
+          address_line_2:
+            type: string
+          address_line_3:
+            type: string
+      passport_number:
+        type: string
+      driver_license:
+        type: object
+        properties:
+          country_code:
+            type: string
+          license_number:
+            type: string
+          state_code:
+            type: string
+    (oas-schema-title): Root Type for rental
+/v1/rentals:
+  '/mva/{mva}':
+    get:
+      description: Rentals Based On Vehicle Motor Vehicle Assest Number
+      displayName: Rentals Based On Vehicle MVA
+      responses:
+        '200':
+          description: Display Rental
+          body:
+            application/json:
+              type: array
+              items:
+                type: rental
+          (oas-global-response-definition): display-rental
+        '400':
+          description: |
+            400 Bad Request is returned when the request could not be understood by the server. 400 includes missing required values, invalid data types, minimum/maximum values, ranges and format.
+          body:
+            application/json:
+              example:
+                value:
+                  status:
+                    request_time: '2020-01-19T11:17:37Z'
+                    request_errors: '1'
+                    errors:
+                      - code: '400'
+                        message: 'No record found for RA_Number : 21451d12'
+                      - code: '400'
+                        message: 'No record found for MVA : 1234152413'
+                      - code: '400'
+                        message: Please provide brand details.
+                      - code: '400'
+                        message: Please provide sign on location details.
+                      - code: '400'
+                        message: Invalid value 'C' for query parameter brand. Invalid element C.
+                      - code: '400'
+                        message: Invalid value 'MANC' for query parameter sign_on_location. Invalid element MANC.
+                  transaction:
+                    transaction_id: 6f1ffd80-5309-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 400 Bad Request
+          (amf-mediaType): application/json
+        '404':
+          description: |
+            404 Not Found is returned when server cannot find the matching request URI (either due to no results, or because of a non-existent endpoint or resource). Server may also respond with this status code when there is 401 or 403, which the service wants to mask for security reasons.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:10:41Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '404'
+                      message: Please provide mva or ra_number details.
+                transaction:
+                  transaction_id: 770dd360-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 404 Not Found
+          (amf-mediaType): application/json
+        '405':
+          description: |
+            A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '405'
+                      message: Method Not Allowed
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 405 Method Not Allowed
+          (amf-mediaType): application/json
+        '406':
+          description: |
+            The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '406'
+                      message: Not Accecptable
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 406 Not Acceptable
+          (amf-mediaType): application/json
+        '415':
+          description: |
+            The request entity has a media type which the server or resource does not support. For example, the client uploads an image as image/svg+xml, but the server requires that images use a different format.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '415'
+                      message: Unsupported Media Type
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 415 Unsupported Media Type
+          (amf-mediaType): application/json
+        '500':
+          description: |
+            500 Internal Server Error is returned when a system or application error has occurred. It generally indicates that something unexpected has gone wrong on the server. This is used for a standard server side exception for a persistent error on the server side.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '500'
+                      message: 'Rental look up failed due to backend connectivity issue, please try again.'
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 500 Internal Server Error
+          (amf-mediaType): application/json
+      queryParameters:
+        brand:
+          description: |
+            The AV  or BD brand name.
+          type: string
+          enum:
+            - A
+            - B
+        transaction_id:
+          description: The transaction identifier used to identify and troubleshoot a given request.
+          required: false
+          type: string
+      securedBy:
+        - OAuth
+      (oas-summary): Rentals Based On Vehicle MVA
+      (oas-tags):
+        - MVA
+    uriParameters:
+      mva:
+        type: string
+    (amf-displayName): Rentals Based On Vehicle MVA
+    (amf-description): 'This retrieves the rental details based on a vehicle MVA, for an existing open Rental only. The details for the latest open rental associated to the MVA are returned.'
+  '/ra_number/{ra_number}':
+    get:
+      description: Rentals Based On Rental Agreement Number
+      displayName: Rentals Based On Rental Agreement Number
+      responses:
+        '200':
+          body:
+            application/json:
+              type: array
+              items:
+                type: rental
+          (amf-mediaType): application/json
+        '400':
+          description: |
+            400 Bad Request is returned when the request could not be understood by the server. 400 includes missing required values, invalid data types, minimum/maximum values, ranges and format.
+          body:
+            application/json:
+              example:
+                value:
+                  status:
+                    request_time: '2020-01-19T11:17:37Z'
+                    request_errors: '1'
+                    errors:
+                      - code: '400'
+                        message: 'No record found for RA_Number : 21451d12'
+                      - code: '400'
+                        message: 'No record found for MVA : 1234152413'
+                      - code: '400'
+                        message: Please provide brand details.
+                      - code: '400'
+                        message: Please provide sign on location details.
+                      - code: '400'
+                        message: Invalid value 'C' for query parameter brand. Invalid element C.
+                      - code: '400'
+                        message: Invalid value 'MANC' for query parameter sign_on_location. Invalid element MANC.
+                  transaction:
+                    transaction_id: 6f1ffd80-5309-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 400 Bad Request
+          (amf-mediaType): application/json
+        '404':
+          description: |
+            404 Not Found is returned when server cannot find the matching request URI (either due to no results, or because of a non-existent endpoint or resource). Server may also respond with this status code when there is 401 or 403, which the service wants to mask for security reasons.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:10:41Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '404'
+                      message: Please provide mva or ra_number details.
+                transaction:
+                  transaction_id: 770dd360-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 404 Not Found
+          (amf-mediaType): application/json
+        '405':
+          description: |
+            A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '405'
+                      message: Method Not Allowed
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 405 Method Not Allowed
+          (amf-mediaType): application/json
+        '406':
+          description: |
+            The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '406'
+                      message: Not Accecptable
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 406 Not Acceptable
+          (amf-mediaType): application/json
+        '415':
+          description: |
+            The request entity has a media type which the server or resource does not support. For example, the client uploads an image as image/svg+xml, but the server requires that images use a different format.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '415'
+                      message: Unsupported Media Type
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 415 Unsupported Media Type
+          (amf-mediaType): application/json
+        '500':
+          description: |
+            500 Internal Server Error is returned when a system or application error has occurred. It generally indicates that something unexpected has gone wrong on the server. This is used for a standard server side exception for a persistent error on the server side.
+          body:
+            application/json:
+              example:
+                status:
+                  request_time: '2020-01-19T11:12:52Z'
+                  request_errors: '1'
+                  errors:
+                    - code: '500'
+                      message: 'Rental look up failed due to backend connectivity issue, please try again.'
+                transaction:
+                  transaction_id: c5a96c00-5308-11ea-8f6b-060309a2ee40
+              type: object
+              properties:
+                status:
+                  description: A container for the error details
+                  type: object
+                  properties:
+                    request_time:
+                      description: The time stamp of the request
+                      type: datetime
+                    request_errors:
+                      description: The number of errors that occurred
+                      type: string
+                    errors:
+                      description: The following describes the elements that can appear in the response body of an error.
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            description: "The\_error code\_value"
+                            type: string
+                          message:
+                            description: The HTTP status code message
+                            type: string
+                        additionalProperties: true
+                      (oas-schema-title): Errors Details
+                  additionalProperties: true
+                  (oas-schema-title): Error Status
+              additionalProperties: true
+              (oas-schema-title): 500 Internal Server Error
+          (amf-mediaType): application/json
+      queryParameters:
+        brand:
+          description: |
+            The AV or BD brand name.
+          type: string
+          enum:
+            - A
+            - B
+        transaction_id:
+          description: The transaction identifier used to identify and troubleshoot a given request.
+          required: false
+          type: string
+      securedBy:
+        - OAuth
+      (oas-summary): Rentals Based On RA Number
+      (oas-tags):
+        - RA
+    uriParameters:
+      ra_number:
+        type: string
+    (amf-displayName): Rentals Based On RA Number
+    (amf-description): This retrieves the rental details based on RA Number. This will return an active rental matching the RA number regardless of either Open or Closed state. Access to rentals are restricted to those appropriate to your access.
+

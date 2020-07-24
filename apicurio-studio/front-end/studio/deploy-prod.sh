@@ -1,6 +1,7 @@
 #!/bin/sh
 
-WILDFLY_DIRECTORY=$1
+#WILDFLY_DIRECTORY=$1
+WILDFLY_DIRECTORY="D:/Boilerplate/codebase/boilerplate/apicurio-studio/distro/quickstart/target/apicurio-studio-0.2.47-SNAPSHOT"
 
 if [ "x$WILDFLY_DIRECTORY" = "x" ]
 then

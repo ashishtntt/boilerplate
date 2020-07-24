@@ -271,6 +271,7 @@
             </exclusions>
             <!--used to get the muleContext in the tests-->
         </dependency>
+        <!--  
         <dependency>
             <groupId>org.mule.tests</groupId>
             <artifactId>mule-tests-runner</artifactId>
@@ -297,6 +298,7 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>

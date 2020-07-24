@@ -56,6 +56,212 @@
   font-size: 14px;
 }
 
+/*This is for development menu*/
+#api-vertical-nav .api-nav-item-dev {
+  color: white;
+  border-bottom: 1px solid #030303;
+  padding: 15px 10px 15px 10px;
+  text-align: center;
+  border-right: 1px solid #030303;
+  border-left: 2px solid transparent;
+}
+#api-vertical-nav .api-nav-item-dev span.fa {
+  color: #72767b;
+}
+
+#api-vertical-nav .api-nav-item-dev-filler {
+  border-right: 1px solid #030303;
+  height: 100%;
+}
+
+#api-vertical-nav .api-nav-item-dev:hover {
+  background-color: #393f44;
+  font-weight: bold;
+  cursor: pointer;
+}
+#api-vertical-nav .api-nav-item-dev:hover span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-dev.active {
+  background-color: #393f44;
+  font-weight: bold;
+  border-left: 2px solid #39a5dc;
+}
+#api-vertical-nav .api-nav-item-dev.active span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-dev.selected {
+  border-right: 1px solid #393f44;
+  color: white;
+  font-weight: bold;
+  background-color: #393f44;
+}
+#api-vertical-nav .api-nav-item-dev.selected span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-dev > span {
+  font-size: 22px;
+  display: inline-block;
+}
+#api-vertical-nav .api-nav-item-dev > div {
+  font-size: 14px;
+}
+
+/*Development Menu styling ends here*/
+/* Test styling starts here */
+#api-vertical-nav .api-nav-item-test {
+  color: white;
+  border-bottom: 1px solid #030303;
+  padding: 15px 10px 15px 10px;
+  text-align: center;
+  border-right: 1px solid #030303;
+  border-left: 2px solid transparent;
+}
+#api-vertical-nav .api-nav-item-test span.fa {
+  color: #72767b;
+}
+
+#api-vertical-nav .api-nav-item-test-filler {
+  border-right: 1px solid #030303;
+  height: 100%;
+}
+
+#api-vertical-nav .api-nav-item-test:hover {
+  background-color: #393f44;
+  font-weight: bold;
+  cursor: pointer;
+}
+#api-vertical-nav .api-nav-item-test:hover span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-test.active {
+  background-color: #393f44;
+  font-weight: bold;
+  border-left: 2px solid #39a5dc;
+}
+#api-vertical-nav .api-nav-item-test.active span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-test.selected {
+  border-right: 1px solid #393f44;
+  color: white;
+  font-weight: bold;
+  background-color: #393f44;
+}
+#api-vertical-nav .api-nav-item-test.selected span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-test > span {
+  font-size: 22px;
+  display: inline-block;
+}
+#api-vertical-nav .api-nav-item-test > div {
+  font-size: 14px;
+}
+/* Test styling ends here*/
+/*DevOps styling starts*/
+#api-vertical-nav .api-nav-item-devops {
+  color: white;
+  border-bottom: 1px solid #030303;
+  padding: 15px 10px 15px 10px;
+  text-align: center;
+  border-right: 1px solid #030303;
+  border-left: 2px solid transparent;
+}
+#api-vertical-nav .api-nav-item-devops span.fa {
+  color: #72767b;
+}
+
+#api-vertical-nav .api-nav-item-devops-filler {
+  border-right: 1px solid #030303;
+  height: 100%;
+}
+
+#api-vertical-nav .api-nav-item-devops:hover {
+  background-color: #393f44;
+  font-weight: bold;
+  cursor: pointer;
+}
+#api-vertical-nav .api-nav-item-devops:hover span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-devops.active {
+  background-color: #393f44;
+  font-weight: bold;
+  border-left: 2px solid #39a5dc;
+}
+#api-vertical-nav .api-nav-item-devops.active span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-devops.selected {
+  border-right: 1px solid #393f44;
+  color: white;
+  font-weight: bold;
+  background-color: #393f44;
+}
+#api-vertical-nav .api-nav-item-devops.selected span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-devops > span {
+  font-size: 22px;
+  display: inline-block;
+}
+#api-vertical-nav .api-nav-item-devops > div {
+  font-size: 14px;
+}
+/*DevOps Styling Stops*/
+/*Operation Menu styling starts here*/
+#api-vertical-nav .api-nav-item-ops {
+  color: white;
+  border-bottom: 1px solid #030303;
+  padding: 15px 10px 15px 10px;
+  text-align: center;
+  border-right: 1px solid #030303;
+  border-left: 2px solid transparent;
+}
+#api-vertical-nav .api-nav-item-ops span.fa {
+  color: #72767b;
+}
+
+#api-vertical-nav .api-nav-item-ops-filler {
+  border-right: 1px solid #030303;
+  height: 100%;
+}
+
+#api-vertical-nav .api-nav-item-ops:hover {
+  background-color: #393f44;
+  font-weight: bold;
+  cursor: pointer;
+}
+#api-vertical-nav .api-nav-item-ops:hover span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-ops.active {
+  background-color: #393f44;
+  font-weight: bold;
+  border-left: 2px solid #39a5dc;
+}
+#api-vertical-nav .api-nav-item-ops.active span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-ops.selected {
+  border-right: 1px solid #393f44;
+  color: white;
+  font-weight: bold;
+  background-color: #393f44;
+}
+#api-vertical-nav .api-nav-item-ops.selected span.fa {
+  color: #39a5dc;
+}
+#api-vertical-nav .api-nav-item-ops > span {
+  font-size: 22px;
+  display: inline-block;
+}
+#api-vertical-nav .api-nav-item-ops > div {
+  font-size: 14px;
+}
+/*Operation Menu styling ends here*/
+
 #api-vertical-nav-details {
   position: absolute;
   left: 120px;
@@ -105,6 +311,42 @@
 }
 #api-vertical-nav-details .api-nav-detail-item .action.active a {
 }
+
+#api-vertical-nav-details .api-nav-detail-item-dev h3 {
+  margin-top: 0;
+  padding-bottom: 3px;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev p.description {
+  line-height: 17px;
+  padding: 3px;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev h4 {
+  font-weight: bold;
+  font-size: 12px;
+  margin-top: 20px;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action {
+  padding-left: 8px;
+  border-bottom: 1px solid #393f44;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action a {
+  color: white;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action a span:first-child {
+  width: 24px;
+  text-align: center;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action:hover {
+  background-color: #4d5258;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action:hover a {
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action.active {
+  background-color: #4d5258;
+}
+#api-vertical-nav-details .api-nav-detail-item-dev .action.active a {
+}
+
 
 #api-nav-menu-shade {
   position: absolute;

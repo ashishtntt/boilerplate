@@ -122,7 +122,7 @@ export class VerticalNavComponent implements OnInit {
      * @returns {boolean}
      */
     isDevelopmentRoute(): boolean {
-        return this.isRouteActive("/development");
+        return this.isRouteActive("/apis");
     }
 
     /**

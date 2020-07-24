@@ -1,3 +1,4 @@
+<!--suppress BuyFluidPluginNoteInspection -->
 <div id="api-vertical-nav-wrapper">
 
     <div id="api-nav-menu-shade" *ngIf="currentSubMenu != subMenuTypes.None" (click)="onShadeClick()">
@@ -21,25 +22,25 @@
             <div>Settings</div>
         </div>
         -->
-        <div id="api-nav-item-development" class="api-nav-item" [class.active]="isDevelopmentRoute()"
+        <div id="api-nav-item-development" class="dev-item-test-devops-ops" [class.active]="isDevelopmentRoute()"
              [class.selected]="currentSubMenu === subMenuTypes.Development" (click)="toggleSubMenu(subMenuTypes.Development)">
             <span class="fa fa-fw fa-bolt"></span>
-            <div>Development</div>
+            <div>Development Directives</div>
         </div>
 
-        <div id="api-nav-item-test" class="api-nav-item" [class.active]="isTestRoute()"
+        <div id="api-nav-item-test" class="api-nav-item-test" [class.active]="isTestRoute()"
              [class.selected]="currentSubMenu === subMenuTypes.Test" (click)="toggleSubMenu(subMenuTypes.Test)">
             <span class="fa fa-fw fa-bolt"></span>
-            <div>Test</div>
+            <div>Test Suite</div>
         </div>
 
-        <div id="api-nav-item-devOps" class="api-nav-item" [class.active]="isDevOpsRoute()"
+        <div id="api-nav-item-devOps" class="api-nav-item-devops" [class.active]="isDevOpsRoute()"
              [class.selected]="currentSubMenu === subMenuTypes.DevOps" (click)="toggleSubMenu(subMenuTypes.DevOps)">
             <span class="fa fa-fw fa-bolt"></span>
             <div>DevOps</div>
         </div>
 
-        <div id="api-nav-item-operations" class="api-nav-item" [class.active]="isOperationsRoute()"
+        <div id="api-nav-item-operations" class="api-nav-item-ops" [class.active]="isOperationsRoute()"
              [class.selected]="currentSubMenu === subMenuTypes.Operations" (click)="toggleSubMenu(subMenuTypes.Operations)">
             <span class="fa fa-fw fa-bolt"></span>
             <div>Operations</div>
@@ -79,10 +80,10 @@
         </div>
         -->
         <!-- Development -->
-        <div id="api-nav-detail-development" class="api-nav-detail-item" *ngIf="currentSubMenu === subMenuTypes.Development">
+        <div id="api-nav-detail-development" class="api-nav-detail-item-dev" *ngIf="currentSubMenu === subMenuTypes.Development">
             <h3>Development</h3>
             <div class="action" [class.active]="isRouteActive('/apis', true)">
-                <a routerLink="/development"><span class="fa fa-fw fa-list"></span><span>Create New Mule App</span></a>
+                <a routerLink="/apis"><span class="fa fa-fw fa-list"></span><span>Create New Mule App</span></a>
             </div>
             <div class="action" [class.active]="isRouteActive('/development/create')">
                 <a routerLink="/development/create"><span class="pficon pficon-add-circle-o"></span><span>View All Mule App</span></a>
@@ -94,7 +95,7 @@
             -->
         </div>
         <!-- Test -->
-        <div id="api-nav-detail-test" class="api-nav-detail-item" *ngIf="currentSubMenu === subMenuTypes.Test">
+        <div id="api-nav-detail-test" class="api-nav-detail-item-test" *ngIf="currentSubMenu === subMenuTypes.Test">
             <h3>Test</h3>
             <div class="action" [class.active]="isRouteActive('/test', true)">
                 <a routerLink="/test"><span class="fa fa-fw fa-list"></span><span>View All Tests</span></a>
@@ -107,7 +108,7 @@
             </div>
         </div>
         <!-- DevOps -->
-        <div id="api-nav-detail-devOps" class="api-nav-detail-item" *ngIf="currentSubMenu === subMenuTypes.DevOps">
+        <div id="api-nav-detail-devOps" class="api-nav-detail-item-devops" *ngIf="currentSubMenu === subMenuTypes.DevOps">
             <h3>DevOps</h3>
             <div class="action" [class.active]="isRouteActive('/devOps', true)">
                 <a routerLink="/devOps"><span class="fa fa-fw fa-list"></span><span>View All DevOps Operations</span></a>
@@ -121,8 +122,8 @@
         </div>
 
         <!-- Operations -->
-        <div id="api-nav-detail-operations" class="api-nav-detail-item" *ngIf="currentSubMenu === subMenuTypes.Operations">
-            <h3>Development</h3>
+        <div id="api-nav-detail-operations" class="api-nav-detail-item-ops" *ngIf="currentSubMenu === subMenuTypes.Operations">
+            <h3>Operations</h3>
             <div class="action" [class.active]="isRouteActive('/operations', true)">
                 <a routerLink="/operations"><span class="fa fa-fw fa-list"></span><span>View All Operations</span></a>
             </div>
