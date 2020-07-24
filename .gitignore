@@ -3,8 +3,6 @@
 *.exec
 *.factorypath
 *.classpath
-*/target/*
-*/target/**
-*/.settings/*
-*/.settings/**
+**/target/**
+**/.settings/**
 *.project
