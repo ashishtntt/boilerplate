@@ -198,7 +198,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>25.0-jre</version>
+				<version>29.0-jre</version>
 				<!--required by raml-parser v1 & v2. Workaround for MULE-12439 -->
 			</dependency>
 			<dependency>
