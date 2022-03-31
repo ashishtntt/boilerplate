@@ -17,7 +17,7 @@
 	<properties>
 		<!-- REVISE VERSIONS USED IN RELEASE -->
 		<!-- SPRING BOOT -->
-		<spring.boot.version>2.2.7.RELEASE</spring.boot.version>
+		<spring.boot.version>2.5.12</spring.boot.version>
 		<freemarker.version>2.3.30</freemarker.version>
 
 		<!-- MULE -->
